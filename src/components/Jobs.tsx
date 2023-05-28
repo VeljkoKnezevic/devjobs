@@ -1,29 +1,17 @@
 import { SetStateAction, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Data } from "../Data";
 
 type JobsProps = {
   data: Data | undefined;
   setData: React.Dispatch<SetStateAction<Data | undefined>>;
+  getData: () => void;
 };
 
-const Jobs = ({ data, setData }: JobsProps) => {
+const Jobs = ({ data, setData, getData }: JobsProps) => {
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch("/data.json");
-        const json: Data = await response.json();
-
-        if (json) {
-          setData(json);
-        }
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log(err);
-      }
-    };
-
     getData();
-  }, [setData]);
+  }, [setData, getData]);
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -53,12 +41,12 @@ const Jobs = ({ data, setData }: JobsProps) => {
                     {job.contract}
                   </p>
                 </div>
-                <button
-                  type="button"
+                <Link
+                  to={`/${job.id}`}
                   className="mt-4 text-xl font-bold text-very-dark-blue dark:text-white"
                 >
                   {job.position}
-                </button>
+                </Link>
                 <p className="mt-4 text-base font-normal text-dark-gray">
                   {job.company}
                 </p>
