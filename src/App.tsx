@@ -18,6 +18,7 @@ const App = () => {
         setData(json);
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
   }, []);
@@ -33,7 +34,6 @@ const App = () => {
                 dark={dark}
                 setDark={setDark}
                 data={data}
-                setData={setData}
                 getData={getData}
               />
             }

@@ -1,14 +1,22 @@
-import { SetStateAction } from "react";
+import { FormEvent, SetStateAction } from "react";
+import { FilterTypes } from "../Data";
 
 type SearchProps = {
-  search: string;
-  setSearch: React.Dispatch<SetStateAction<string>>;
+  filters: FilterTypes;
+  setFilters: React.Dispatch<SetStateAction<FilterTypes>>;
+  setOpenFilter: React.Dispatch<SetStateAction<boolean>>;
 };
 
-const Search = ({ search, setSearch }: SearchProps) => {
-  const handleFilter = () => {};
+const Search = ({ filters, setFilters, setOpenFilter }: SearchProps) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleSubmit = () => {};
+    const form = e.target as HTMLFormElement;
+
+    const input = form.elements[0] as HTMLInputElement;
+
+    setFilters((prev) => ({ ...prev, search: input.value }));
+  };
 
   return (
     <form
@@ -19,13 +27,16 @@ const Search = ({ search, setSearch }: SearchProps) => {
         className="dark:bg-very-dark-blue"
         type="text"
         placeholder="Filter by title..."
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) =>
+          filters.search &&
+          setFilters((prev) => ({ ...prev, search: e.target.value }))
+        }
       />
       <button
         className="bg-[url(/assets/mobile/icon-filter.svg)] bg-center bg-no-repeat p-[10px]"
         type="button"
         aria-label="filter"
-        onClick={handleFilter}
+        onClick={() => setOpenFilter(true)}
       ></button>
       <button className="rounded bg-violet p-3" type="submit">
         <img
