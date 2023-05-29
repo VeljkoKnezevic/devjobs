@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
@@ -9,7 +9,7 @@ const App = () => {
   const [dark, setDark] = useState(false);
   const [data, setData] = useState<Data | undefined>();
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     try {
       const response = await fetch("/data.json");
       const json: Data = await response.json();
@@ -18,10 +18,10 @@ const App = () => {
         setData(json);
       }
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.log(err);
     }
-  };
+  }, []);
+
   return (
     <Router>
       <div className={`${dark ? "dark" : ""}`}>

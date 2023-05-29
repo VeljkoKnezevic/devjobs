@@ -13,11 +13,13 @@ type MainProps = {
 };
 
 const Main = ({ dark, setDark, data, setData, getData }: MainProps) => {
+  const [search, setSearch] = useState("");
+
   return (
     <main className="h-full w-full bg-light-gray pb-16 font-kumbh dark:bg-midnight">
       <Header dark={dark} setDark={setDark} />
-      <Search />
-      <Jobs data={data} setData={setData} getData={getData} />
+      <Search search={search} setSearch={setSearch} />
+      <Jobs data={data} search={search} getData={getData} />
       <button
         className="text-bold mx-auto mt-8 block bg-violet px-8 py-4  text-base text-white"
         type="button"

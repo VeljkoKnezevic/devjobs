@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { SetStateAction, useEffect } from "react";
 import { Data } from "../Data";
 import Header from "./Header";
-import Main from "./Main";
 
 type DetailProps = {
   data: Data | undefined;
