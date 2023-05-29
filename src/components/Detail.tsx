@@ -31,7 +31,7 @@ const Detail = ({ data, dark, setDark, getData }: DetailProps) => {
                 className="h-full w-full bg-light-gray font-kumbh dark:bg-midnight"
               >
                 <Header dark={dark} setDark={setDark} />
-                <section className="relative mx-6 -mt-4 flex flex-col items-center rounded-md bg-white pb-8 pt-12 dark:bg-very-dark-blue">
+                <section className="relative mx-6 -mt-4 flex flex-col items-center rounded-md bg-white pb-8 pt-12  dark:bg-very-dark-blue">
                   <div
                     style={{
                       background: job.logoBackground,
@@ -40,7 +40,7 @@ const Detail = ({ data, dark, setDark, getData }: DetailProps) => {
                   >
                     <img src={job.logo} alt={job.company} />
                   </div>
-                  <h2 className="text-xl font-bold text-very-dark-blue">
+                  <h2 className="text-xl font-bold text-very-dark-blue dark:text-white">
                     {job.company}
                   </h2>
                   <a
@@ -56,7 +56,7 @@ const Detail = ({ data, dark, setDark, getData }: DetailProps) => {
                     Company Site
                   </a>
                 </section>
-                <section className="mx-6 mt-6 bg-white px-6 py-10">
+                <section className="mx-6 mt-6 bg-white px-6 py-10 dark:bg-very-dark-blue">
                   <div className="flex items-end gap-3">
                     <p className="text-base font-normal text-dark-gray">
                       {job.postedAt}
@@ -83,7 +83,7 @@ const Detail = ({ data, dark, setDark, getData }: DetailProps) => {
                   <p className="mt-8 text-base font-normal text-dark-gray">
                     {job.description}
                   </p>
-                  <h3 className="mt-8 text-xl font-bold text-very-dark-blue">
+                  <h3 className="mt-8 text-xl font-bold text-very-dark-blue dark:text-white">
                     Requirements
                   </h3>
                   <p className="mt-7 text-base font-normal text-dark-gray">
@@ -100,7 +100,7 @@ const Detail = ({ data, dark, setDark, getData }: DetailProps) => {
                       );
                     })}
                   </ul>
-                  <h3 className="mt-10 text-xl font-bold text-very-dark-blue">
+                  <h3 className="mt-10 text-xl font-bold text-very-dark-blue dark:text-white">
                     What You Will Do
                   </h3>
                   <p className="mt-7 text-base font-normal text-dark-gray">
@@ -118,7 +118,7 @@ const Detail = ({ data, dark, setDark, getData }: DetailProps) => {
                     })}
                   </ol>
                 </section>
-                <div className="mt-16 flex items-center justify-center bg-white p-6">
+                <div className="mt-16 flex items-center justify-center bg-white p-6 dark:bg-very-dark-blue">
                   <a
                     className="w-full rounded-md bg-violet py-4 text-center text-base font-bold text-white"
                     href={job.apply}
