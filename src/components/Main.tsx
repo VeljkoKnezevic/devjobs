@@ -9,10 +9,12 @@ type MainProps = {
   dark: boolean;
   setDark: React.Dispatch<SetStateAction<boolean>>;
   data: Data | undefined;
+  setData: React.Dispatch<SetStateAction<Data | undefined>>;
+
   getData: () => void;
 };
 
-const Main = ({ dark, setDark, data, getData }: MainProps) => {
+const Main = ({ dark, setData, setDark, data, getData }: MainProps) => {
   const [openFilter, setOpenFilter] = useState(false);
 
   const [filters, setFilters] = useState<FilterTypes>({
@@ -25,7 +27,11 @@ const Main = ({ dark, setDark, data, getData }: MainProps) => {
       {openFilter && (
         <>
           <div className="absolute z-10 h-full w-full  bg-[#111] opacity-40"></div>
-          <Filter filters={filters} setFilters={setFilters} />
+          <Filter
+            setOpenFilter={setOpenFilter}
+            filters={filters}
+            setFilters={setFilters}
+          />
         </>
       )}
       <Header dark={dark} setDark={setDark} />
@@ -35,7 +41,7 @@ const Main = ({ dark, setDark, data, getData }: MainProps) => {
         setFilters={setFilters}
       />
 
-      <Jobs data={data} filters={filters} getData={getData} />
+      <Jobs setData={setData} data={data} filters={filters} getData={getData} />
       <button
         className="text-bold mx-auto mt-8 block bg-violet px-8 py-4  text-base text-white"
         type="button"

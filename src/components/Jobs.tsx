@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import { Data, FilterTypes } from "../Data";
 import Job from "./Job";
 
 type JobsProps = {
   data: Data | undefined;
+  setData: React.Dispatch<SetStateAction<Data | undefined>>;
   filters: FilterTypes;
   getData: () => void;
 };
 
-const Jobs = ({ data, filters, getData }: JobsProps) => {
+const Jobs = ({ data, setData, filters, getData }: JobsProps) => {
   useEffect(() => {
     getData();
   }, [getData]);

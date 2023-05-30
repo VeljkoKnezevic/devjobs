@@ -1,16 +1,26 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Checkbox from "rc-checkbox";
-import { FormEvent, SetStateAction } from "react";
+import { FormEvent, SetStateAction, useState } from "react";
 import { FilterTypes } from "../Data";
 
 type FilterProps = {
   filters: FilterTypes;
   setFilters: React.Dispatch<SetStateAction<FilterTypes>>;
+  setOpenFilter: React.Dispatch<SetStateAction<boolean>>;
 };
 
-const Filter = ({ filters, setFilters }: FilterProps) => {
+const Filter = ({ filters, setFilters, setOpenFilter }: FilterProps) => {
+  const [filtersCopy, setFiltersCopy] = useState({ ...filters });
+
   const handleFilterSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setFilters((prev) => ({
+      ...prev,
+      fullTime: filtersCopy.fullTime,
+      location: filtersCopy.location,
+    }));
+    setOpenFilter(false);
   };
 
   return (
@@ -20,7 +30,14 @@ const Filter = ({ filters, setFilters }: FilterProps) => {
     >
       <div className="flex gap-4 border-b-[1px] border-dark-gray border-opacity-20 p-6">
         <img src="/assets/desktop/icon-location.svg" alt="" />
-        <input type="text" placeholder="Filter by location..." />
+        <input
+          value={filtersCopy.location}
+          onChange={(e) =>
+            setFiltersCopy((prev) => ({ ...prev, location: e.target.value }))
+          }
+          type="text"
+          placeholder="Filter by location..."
+        />
       </div>
       <div className="flex flex-col p-6">
         <label
@@ -29,9 +46,9 @@ const Filter = ({ filters, setFilters }: FilterProps) => {
         >
           <Checkbox
             id="checkbox"
-            checked={filters.fullTime}
+            checked={filtersCopy.fullTime}
             onChange={() =>
-              setFilters((prev) => ({ ...prev, fullTime: !prev.fullTime }))
+              setFiltersCopy((prev) => ({ ...prev, fullTime: !prev.fullTime }))
             }
             className="mr-2"
           />
