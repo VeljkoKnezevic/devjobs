@@ -15,35 +15,37 @@ const Jobs = ({ data, setData, filters, getData }: JobsProps) => {
     getData();
   }, [getData]);
 
-  const searchFilter = (job: JobData) => {
-    if (!filters.search) {
-      return job;
-    }
-    return job.position.toLowerCase().includes(filters.search);
-  };
+  const filteringFunction = (job: JobData, filter: string | boolean) => {
+    if (filter === filters.search) {
+      if (!filters.search) {
+        return job;
+      }
 
-  const fullTimeFilter = (job: JobData) => {
-    if (!filters.fullTime) {
-      return job;
+      return job.position.toLowerCase().includes(filters.search);
     }
 
-    return job.contract === "Full Time";
-  };
+    if (filter === filters.fullTime) {
+      if (!filters.fullTime) {
+        return job;
+      }
 
-  const locationFilter = (job: JobData) => {
+      return job.contract === "Full Time";
+    }
+
     if (!filters.location) {
       return job;
     }
 
     return job.location.toLowerCase().includes(filters.location.toLowerCase());
   };
+
   return (
     <div className="mt-[57px] grid gap-12">
       {data &&
         data
-          .filter((job) => searchFilter(job))
-          .filter((job) => fullTimeFilter(job))
-          .filter((job) => locationFilter(job))
+          .filter((job) => filteringFunction(job, filters.search))
+          .filter((job) => filteringFunction(job, filters.fullTime))
+          .filter((job) => filteringFunction(job, filters.location))
           .map((job) => {
             return <Job key={job.id} job={job} />;
           })}
