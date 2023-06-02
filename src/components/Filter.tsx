@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import Checkbox from "rc-checkbox";
 import { FormEvent, SetStateAction, useState } from "react";
 import { FilterTypes } from "../Data";
 
@@ -26,11 +25,12 @@ const Filter = ({ filters, setFilters, setOpenFilter }: FilterProps) => {
   return (
     <form
       onSubmit={handleFilterSubmit}
-      className="absolute left-6 top-56 z-20 w-[327px] bg-white"
+      className="absolute left-6 top-56 z-20 w-[327px] bg-white dark:bg-very-dark-blue"
     >
       <div className="flex gap-4 border-b-[1px] border-dark-gray border-opacity-20 p-6">
         <img src="/assets/desktop/icon-location.svg" alt="" />
         <input
+          className="text-very-dark-blue dark:bg-very-dark-blue dark:text-white"
           value={filtersCopy.location}
           onChange={(e) =>
             setFiltersCopy((prev) => ({ ...prev, location: e.target.value }))
@@ -42,15 +42,16 @@ const Filter = ({ filters, setFilters, setOpenFilter }: FilterProps) => {
       <div className="flex flex-col p-6">
         <label
           htmlFor="checkbox"
-          className="text-base font-bold text-very-dark-blue"
+          className="flex gap-4 text-base font-bold text-very-dark-blue dark:text-white"
         >
-          <Checkbox
+          <input
+            type="checkbox"
             id="checkbox"
             checked={filtersCopy.fullTime}
             onChange={() =>
               setFiltersCopy((prev) => ({ ...prev, fullTime: !prev.fullTime }))
             }
-            className="mr-2"
+            className="h-6 w-6 appearance-none rounded-[3px] bg-very-dark-blue bg-opacity-10 bg-center bg-no-repeat checked:bg-violet checked:bg-[url(/assets/desktop/icon-check.svg)] dark:bg-white dark:bg-opacity-10 dark:checked:bg-violet"
           />
           Full Time Only
         </label>

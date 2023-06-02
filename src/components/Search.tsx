@@ -24,7 +24,7 @@ const Search = ({ filters, setFilters, setOpenFilter }: SearchProps) => {
       className="mx-6 -mt-10 flex items-center justify-between rounded-md bg-white p-4 dark:bg-very-dark-blue"
     >
       <input
-        className="dark:bg-very-dark-blue"
+        className="text-very-dark-blue dark:bg-very-dark-blue dark:text-white"
         type="text"
         placeholder="Filter by title..."
         onChange={(e) =>

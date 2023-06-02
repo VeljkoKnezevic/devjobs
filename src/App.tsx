@@ -34,7 +34,6 @@ const App = () => {
                 dark={dark}
                 setDark={setDark}
                 data={data}
-                setData={setData}
                 getData={getData}
               />
             }
