@@ -1,27 +1,99 @@
-import { FormEvent, SetStateAction } from "react";
+import { FormEvent, SetStateAction, useEffect, useState } from "react";
 import { FilterTypes } from "../Data";
 
 type SearchProps = {
   filters: FilterTypes;
   setFilters: React.Dispatch<SetStateAction<FilterTypes>>;
   setOpenFilter: React.Dispatch<SetStateAction<boolean>>;
+  width: number;
 };
 
-const Search = ({ filters, setFilters, setOpenFilter }: SearchProps) => {
+interface FormElements extends HTMLCollection {
+  0: HTMLInputElement;
+  1: HTMLInputElement;
+  2: HTMLInputElement;
+}
+
+// eslint-disable-next-line consistent-return
+const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
 
-    const input = form.elements[0] as HTMLInputElement;
+    const elements = form.elements as FormElements;
 
-    setFilters((prev) => ({ ...prev, search: input.value }));
+    if (width < 768) {
+      setFilters((prev) => ({ ...prev, search: elements[0].value }));
+    } else {
+      setFilters((prev) => ({
+        ...prev,
+        search: elements[0].value,
+        location: elements[1].value,
+        fullTime: elements[2].checked,
+      }));
+    }
   };
+
+  if (width >= 768) {
+    return (
+      <form
+        onSubmit={handleSubmit}
+        className=" mx-10 -mt-10 flex items-center rounded-md bg-white  dark:bg-very-dark-blue"
+      >
+        <div className="border-r-[1px] border-dark-gray border-opacity-20 py-7 pl-6 pr-12">
+          <input
+            className="w-36 bg-[url(/assets/desktop/icon-search.svg)] bg-no-repeat pl-10 text-very-dark-blue dark:bg-very-dark-blue dark:text-white"
+            type="text"
+            placeholder="Filter by title..."
+            onChange={(e) =>
+              filters.search &&
+              setFilters((prev) => ({ ...prev, search: e.target.value }))
+            }
+          />
+        </div>
+
+        <div className="border-r-[1px] border-dark-gray border-opacity-20 py-7 pl-6 pr-5">
+          <input
+            className=" w-[169px] bg-[url(/assets/desktop/icon-location.svg)] bg-no-repeat pl-8 text-very-dark-blue dark:bg-very-dark-blue dark:text-white"
+            type="text"
+            placeholder="Filter by location..."
+            onChange={(e) =>
+              filters.location &&
+              setFilters((prev) => ({ ...prev, location: e.target.value }))
+            }
+          />
+        </div>
+        <label
+          htmlFor="checkbox"
+          className="ml-6 flex gap-4 text-base font-bold text-very-dark-blue dark:text-white"
+        >
+          <input
+            type="checkbox"
+            id="checkbox"
+            className="h-6 w-6 appearance-none rounded-[3px] bg-very-dark-blue bg-opacity-10 bg-center bg-no-repeat checked:bg-violet checked:bg-[url(/assets/desktop/icon-check.svg)] dark:bg-white dark:bg-opacity-10 dark:checked:bg-violet"
+            onChange={() =>
+              filters.fullTime &&
+              setFilters((prev) => ({ ...prev, fullTime: !prev }))
+            }
+          />
+          Full Time
+        </label>
+
+        <button
+          className="ml-7 rounded bg-violet px-[14px] py-3 font-bold text-white"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+    );
+  }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-6 -mt-10 flex items-center justify-between rounded-md bg-white p-4 dark:bg-very-dark-blue"
+      className="mx-6 -mt-10 flex items-center justify-between rounded-md bg-white p-4 dark:bg-very-dark-blue "
     >
       <input
         className="text-very-dark-blue dark:bg-very-dark-blue dark:text-white"

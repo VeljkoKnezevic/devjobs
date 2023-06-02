@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
@@ -8,6 +8,17 @@ import Detail from "./components/Detail";
 const App = () => {
   const [dark, setDark] = useState(false);
   const [data, setData] = useState<Data | undefined>();
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
 
   const getData = useCallback(async () => {
     try {
@@ -31,7 +42,7 @@ const App = () => {
             path="/"
             element={
               <Main
-                dark={dark}
+                width={width}
                 setDark={setDark}
                 data={data}
                 getData={getData}
@@ -42,7 +53,7 @@ const App = () => {
             path="/:id"
             element={
               <Detail
-                dark={dark}
+                width={width}
                 setDark={setDark}
                 data={data}
                 getData={getData}

@@ -9,6 +9,7 @@ type FilterProps = {
 };
 
 const Filter = ({ filters, setFilters, setOpenFilter }: FilterProps) => {
+  // This is a mobile only component
   const [filtersCopy, setFiltersCopy] = useState({ ...filters });
 
   const handleFilterSubmit = (e: FormEvent<HTMLFormElement>) => {

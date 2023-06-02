@@ -9,7 +9,7 @@ const Job = ({ job }: JobProps) => {
   return (
     <div
       key={job.id}
-      className="relative mx-6 rounded-md bg-white dark:bg-very-dark-blue"
+      className="relative mx-6 rounded-md bg-white dark:bg-very-dark-blue md:mx-0"
     >
       <div
         style={{

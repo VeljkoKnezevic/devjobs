@@ -6,14 +6,13 @@ import { Data, FilterTypes } from "../Data";
 import Filter from "./Filter";
 
 type MainProps = {
-  dark: boolean;
   setDark: React.Dispatch<SetStateAction<boolean>>;
   data: Data | undefined;
-
+  width: number;
   getData: () => void;
 };
 
-const Main = ({ dark, setDark, data, getData }: MainProps) => {
+const Main = ({ width, setDark, data, getData }: MainProps) => {
   const [openFilter, setOpenFilter] = useState(false);
 
   const [filters, setFilters] = useState<FilterTypes>({
@@ -40,8 +39,9 @@ const Main = ({ dark, setDark, data, getData }: MainProps) => {
           />
         </>
       )}
-      <Header dark={dark} setDark={setDark} />
+      <Header setDark={setDark} />
       <Search
+        width={width}
         filters={filters}
         setOpenFilter={setOpenFilter}
         setFilters={setFilters}

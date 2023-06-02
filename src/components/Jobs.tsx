@@ -32,7 +32,7 @@ const Jobs = ({ data, filters, getData }: JobsProps) => {
   };
 
   return (
-    <div className="mt-[57px] grid gap-12">
+    <div className="mt-[57px] grid gap-12 md:mx-10 md:grid-cols-2 md:gap-x-3 md:gap-y-16">
       {data &&
         data
           .filter((job) => filteringFunction(job, filters.search))

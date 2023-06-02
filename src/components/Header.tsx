@@ -1,16 +1,15 @@
 import { SetStateAction } from "react";
 
 type HeaderProps = {
-  dark: boolean;
   setDark: React.Dispatch<SetStateAction<boolean>>;
 };
 
-const Header = ({ dark, setDark }: HeaderProps) => {
+const Header = ({ setDark }: HeaderProps) => {
   const toggleDark = () => {
     setDark((prev) => !prev);
   };
   return (
-    <header className="flex justify-between bg-[url(/assets/mobile/bg-pattern-header.svg)] px-6 pb-[72px] pt-8">
+    <header className="flex justify-between bg-[url(/assets/mobile/bg-pattern-header.svg)] px-6 pb-[72px] pt-8 md:bg-[url(/assets/tablet/bg-pattern-header.svg)] md:px-10 md:pb-[86px] md:pt-10">
       <h1>
         <img src="/assets/desktop/logo.svg" alt="Devjobs logo" />
       </h1>
