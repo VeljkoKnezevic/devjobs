@@ -9,7 +9,7 @@ const Header = ({ setDark }: HeaderProps) => {
     setDark((prev) => !prev);
   };
   return (
-    <header className="flex justify-between bg-[url(/assets/mobile/bg-pattern-header.svg)] px-6 pb-[72px] pt-8 md:bg-[url(/assets/tablet/bg-pattern-header.svg)] md:px-10 md:pb-[86px] md:pt-10">
+    <header className="flex justify-between bg-[url(/assets/mobile/bg-pattern-header.svg)] px-6 pb-[72px] pt-8 md:bg-[url(/assets/tablet/bg-pattern-header.svg)] md:px-10 md:pb-[86px] md:pt-10 lg:bg-[url(/assets/desktop/bg-pattern-header.svg)] xl:rounded-bl-[100px] xl:bg-cover xl:px-40 xl:pt-11">
       <h1>
         <img src="/assets/desktop/logo.svg" alt="Devjobs logo" />
       </h1>

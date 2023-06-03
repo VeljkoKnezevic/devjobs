@@ -39,13 +39,17 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
     return (
       <form
         onSubmit={handleSubmit}
-        className=" mx-10 -mt-10 flex items-center rounded-md bg-white  dark:bg-very-dark-blue"
+        className=" mx-10 -mt-10 flex items-center justify-between rounded-md bg-white pr-4 dark:bg-very-dark-blue xl:mx-40"
       >
-        <div className="border-r-[1px] border-dark-gray border-opacity-20 py-7 pl-6 pr-12">
+        <div className="border-r-[1px] border-dark-gray border-opacity-20 py-7 pl-6 pr-12 xl:pr-[10%] 2xl:pr-[20%]">
           <input
-            className="w-36 bg-[url(/assets/desktop/icon-search.svg)] bg-no-repeat pl-10 text-very-dark-blue dark:bg-very-dark-blue dark:text-white"
+            className="w-36 bg-[url(/assets/desktop/icon-search.svg)] bg-no-repeat pl-10 text-very-dark-blue dark:bg-very-dark-blue dark:text-white xl:w-80"
             type="text"
-            placeholder="Filter by title..."
+            placeholder={
+              width >= 1440
+                ? "Filter by title, companies, expertise…"
+                : "Filter by title..."
+            }
             onChange={(e) =>
               filters.search &&
               setFilters((prev) => ({ ...prev, search: e.target.value }))
@@ -53,7 +57,7 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
           />
         </div>
 
-        <div className="border-r-[1px] border-dark-gray border-opacity-20 py-7 pl-6 pr-5">
+        <div className="border-r-[1px] border-dark-gray border-opacity-20 py-7 pl-6 pr-5 xl:pr-[10%] 2xl:pr-[20%]">
           <input
             className=" w-[169px] bg-[url(/assets/desktop/icon-location.svg)] bg-no-repeat pl-8 text-very-dark-blue dark:bg-very-dark-blue dark:text-white"
             type="text"
@@ -66,7 +70,7 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
         </div>
         <label
           htmlFor="checkbox"
-          className="ml-6 flex gap-4 text-base font-bold text-very-dark-blue dark:text-white"
+          className="ml-6 flex gap-4 text-base font-bold text-very-dark-blue dark:text-white xl:ml-8"
         >
           <input
             type="checkbox"
@@ -77,11 +81,11 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
               setFilters((prev) => ({ ...prev, fullTime: !prev }))
             }
           />
-          Full Time
+          {width >= 1440 ? "Full Time Only" : "Full Time"}
         </label>
 
         <button
-          className="ml-7 rounded bg-violet px-[14px] py-3 font-bold text-white"
+          className="ml-7 rounded bg-violet px-[14px] py-3 font-bold text-white xl:px-9"
           type="submit"
         >
           Search

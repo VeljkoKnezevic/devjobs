@@ -30,7 +30,7 @@ const Detail = ({ width, data, setDark, getData }: DetailProps) => {
                 className="h-full w-full bg-light-gray font-kumbh dark:bg-midnight"
               >
                 <Header setDark={setDark} />
-                <section className="relative mx-6 -mt-4 flex flex-col items-center rounded-md bg-white pb-8 pt-12 dark:bg-very-dark-blue md:mx-10 md:-mt-10 md:flex-row md:px-10 md:py-[42px]">
+                <section className="relative mx-6 -mt-4 flex flex-col items-center rounded-md bg-white pb-8 pt-12 dark:bg-very-dark-blue md:mx-10 md:-mt-10 md:flex-row md:px-10 md:py-[42px] xl:mx-auto xl:max-w-[730px]">
                   <div
                     style={{
                       background: job.logoBackground,
@@ -57,7 +57,7 @@ const Detail = ({ width, data, setDark, getData }: DetailProps) => {
                     Company Site
                   </a>
                 </section>
-                <section className="mx-6 mt-6 bg-white px-6 py-10 dark:bg-very-dark-blue md:mx-10 md:mt-8 md:p-12 ">
+                <section className="mx-6 mt-6 bg-white px-6 py-10 dark:bg-very-dark-blue md:mx-10 md:mt-8 md:p-12 xl:mx-auto xl:max-w-[730px]">
                   <div className="items-center md:flex">
                     <div>
                       <div className="flex items-end gap-3">
@@ -132,21 +132,23 @@ const Detail = ({ width, data, setDark, getData }: DetailProps) => {
                     </a>
                   </div>
                 ) : (
-                  <div className="mt-16 flex items-center  justify-between bg-white p-6 dark:bg-very-dark-blue md:px-10 md:pt-6">
-                    <div>
-                      <h3 className="text-xl font-bold text-very-dark-blue dark:text-white">
-                        {job.position}
-                      </h3>
-                      <p className="text-base font-normal text-dark-gray">
-                        {job.company}
-                      </p>
+                  <div className="mt-16  bg-white  dark:bg-very-dark-blue ">
+                    <div className="flex items-center justify-between p-6 md:px-10 md:pt-6 xl:mx-auto xl:max-w-[730px] xl:px-0">
+                      <div>
+                        <h3 className="text-xl font-bold text-very-dark-blue dark:text-white">
+                          {job.position}
+                        </h3>
+                        <p className="text-base font-normal text-dark-gray">
+                          {job.company}
+                        </p>
+                      </div>
+                      <a
+                        className="rounded-md bg-violet px-7 py-4 text-center text-base font-bold text-white md:py-3"
+                        href={job.apply}
+                      >
+                        Apply now
+                      </a>
                     </div>
-                    <a
-                      className="rounded-md bg-violet px-7 py-4 text-center text-base font-bold text-white md:py-3"
-                      href={job.apply}
-                    >
-                      Apply now
-                    </a>
                   </div>
                 )}
               </div>
