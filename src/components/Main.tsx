@@ -14,6 +14,7 @@ type MainProps = {
 
 const Main = ({ width, setDark, data, getData }: MainProps) => {
   const [openFilter, setOpenFilter] = useState(false);
+  const [loadMore, setLoadMore] = useState(false);
 
   const [filters, setFilters] = useState<FilterTypes>({
     search: "",
@@ -47,13 +48,21 @@ const Main = ({ width, setDark, data, getData }: MainProps) => {
         setFilters={setFilters}
       />
 
-      <Jobs data={data} filters={filters} getData={getData} />
-      <button
-        className="text-bold mx-auto mt-8 block rounded bg-violet px-8 py-4 text-base text-white  hover:cursor-pointer hover:bg-light-violet"
-        type="button"
-      >
-        Load More
-      </button>
+      <Jobs
+        loadMore={loadMore}
+        data={data}
+        filters={filters}
+        getData={getData}
+      />
+      {!loadMore && (
+        <button
+          className="text-bold mx-auto mt-8 block rounded bg-violet px-8 py-4 text-base text-white  hover:cursor-pointer hover:bg-light-violet"
+          type="button"
+          onClick={() => setLoadMore(true)}
+        >
+          Load More
+        </button>
+      )}
     </main>
   );
 };

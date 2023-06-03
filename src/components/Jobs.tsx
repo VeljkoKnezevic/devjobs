@@ -5,10 +5,11 @@ import Job from "./Job";
 type JobsProps = {
   data: Data | undefined;
   filters: FilterTypes;
+  loadMore: boolean;
   getData: () => void;
 };
 
-const Jobs = ({ data, filters, getData }: JobsProps) => {
+const Jobs = ({ loadMore, data, filters, getData }: JobsProps) => {
   useEffect(() => {
     getData();
   }, [getData]);
@@ -33,14 +34,22 @@ const Jobs = ({ data, filters, getData }: JobsProps) => {
 
   return (
     <div className="mt-[57px] grid gap-12 md:mx-10 md:grid-cols-2 md:gap-x-3 md:gap-y-16 xl:mx-40 xl:mt-20 xl:grid-cols-3 xl:gap-x-8 xl:gap-y-10">
-      {data &&
-        data
-          .filter((job) => filteringFunction(job, filters.search))
-          .filter((job) => filteringFunction(job, filters.fullTime))
-          .filter((job) => filteringFunction(job, filters.location))
-          .map((job) => {
-            return <Job key={job.id} job={job} />;
-          })}
+      {!loadMore
+        ? data
+            ?.slice(0, 12)
+            .filter((job) => filteringFunction(job, filters.search))
+            .filter((job) => filteringFunction(job, filters.fullTime))
+            .filter((job) => filteringFunction(job, filters.location))
+            .map((job) => {
+              return <Job key={job.id} job={job} />;
+            })
+        : data
+            ?.filter((job) => filteringFunction(job, filters.search))
+            .filter((job) => filteringFunction(job, filters.fullTime))
+            .filter((job) => filteringFunction(job, filters.location))
+            .map((job) => {
+              return <Job key={job.id} job={job} />;
+            })}
     </div>
   );
 };
