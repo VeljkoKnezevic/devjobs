@@ -34,17 +34,18 @@ const Jobs = ({ loadMore, data, filters, getData }: JobsProps) => {
 
   return (
     <div className="mt-[57px] grid gap-12 md:mx-10 md:grid-cols-2 md:gap-x-3 md:gap-y-16 xl:mx-40 xl:mt-20 xl:grid-cols-3 xl:gap-x-8 xl:gap-y-10">
-      {!loadMore
+      {!loadMore && data
         ? data
-            ?.slice(0, 12)
+            .slice(0, 12)
             .filter((job) => filteringFunction(job, filters.search))
             .filter((job) => filteringFunction(job, filters.fullTime))
             .filter((job) => filteringFunction(job, filters.location))
             .map((job) => {
               return <Job key={job.id} job={job} />;
             })
-        : data
-            ?.filter((job) => filteringFunction(job, filters.search))
+        : data &&
+          data
+            .filter((job) => filteringFunction(job, filters.search))
             .filter((job) => filteringFunction(job, filters.fullTime))
             .filter((job) => filteringFunction(job, filters.location))
             .map((job) => {

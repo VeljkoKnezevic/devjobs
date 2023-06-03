@@ -21,6 +21,7 @@ const Header = ({ setDark }: HeaderProps) => {
             type="checkbox"
             onChange={toggleDark}
             id="toggle"
+            name="toggle"
           />
         </label>
         <img src="/assets/desktop/icon-moon.svg" alt="Dark mode" />
