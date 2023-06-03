@@ -27,7 +27,7 @@ const Job = ({ job }: JobProps) => {
         </div>
         <Link
           to={`/${job.id}`}
-          className="mt-4 text-xl font-bold text-very-dark-blue dark:text-white"
+          className="mt-4 text-xl font-bold text-very-dark-blue hover:cursor-pointer hover:text-dark-gray dark:text-white dark:hover:text-dark-gray"
         >
           {job.position}
         </Link>

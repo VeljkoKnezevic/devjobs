@@ -1,4 +1,4 @@
-import { FormEvent, SetStateAction, useEffect, useState } from "react";
+import { FormEvent, SetStateAction } from "react";
 import { FilterTypes } from "../Data";
 
 type SearchProps = {
@@ -43,7 +43,7 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
       >
         <div className="border-r-[1px] border-dark-gray border-opacity-20 py-7 pl-6 pr-12 xl:pr-[10%] 2xl:pr-[20%]">
           <input
-            className="w-36 bg-[url(/assets/desktop/icon-search.svg)] bg-no-repeat pl-10 text-very-dark-blue dark:bg-very-dark-blue dark:text-white xl:w-80"
+            className="w-36 bg-[url(/assets/desktop/icon-search.svg)] bg-no-repeat pl-10 text-very-dark-blue caret-violet dark:bg-very-dark-blue dark:text-white xl:w-80"
             type="text"
             placeholder={
               width >= 1440
@@ -59,7 +59,7 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
 
         <div className="border-r-[1px] border-dark-gray border-opacity-20 py-7 pl-6 pr-5 xl:pr-[10%] 2xl:pr-[20%]">
           <input
-            className=" w-[169px] bg-[url(/assets/desktop/icon-location.svg)] bg-no-repeat pl-8 text-very-dark-blue dark:bg-very-dark-blue dark:text-white"
+            className=" w-[169px] bg-[url(/assets/desktop/icon-location.svg)] bg-no-repeat pl-8 text-very-dark-blue caret-violet dark:bg-very-dark-blue dark:text-white"
             type="text"
             placeholder="Filter by location..."
             onChange={(e) =>
@@ -70,12 +70,12 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
         </div>
         <label
           htmlFor="checkbox"
-          className="ml-6 flex gap-4 text-base font-bold text-very-dark-blue dark:text-white xl:ml-8"
+          className="ml-6 flex gap-4 text-base font-bold text-very-dark-blue hover:cursor-pointer dark:text-white xl:ml-8"
         >
           <input
             type="checkbox"
             id="checkbox"
-            className="h-6 w-6 appearance-none rounded-[3px] bg-very-dark-blue bg-opacity-10 bg-center bg-no-repeat checked:bg-violet checked:bg-[url(/assets/desktop/icon-check.svg)] dark:bg-white dark:bg-opacity-10 dark:checked:bg-violet"
+            className="h-6 w-6 appearance-none rounded-[3px] bg-very-dark-blue bg-opacity-10 bg-center bg-no-repeat checked:bg-violet checked:bg-[url(/assets/desktop/icon-check.svg)] hover:cursor-pointer dark:bg-white dark:bg-opacity-10 dark:checked:bg-violet"
             onChange={() =>
               filters.fullTime &&
               setFilters((prev) => ({ ...prev, fullTime: !prev }))
@@ -85,7 +85,7 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
         </label>
 
         <button
-          className="ml-7 rounded bg-violet px-[14px] py-3 font-bold text-white xl:px-9"
+          className="ml-7 rounded bg-violet px-[14px] py-3 font-bold text-white hover:bg-light-violet xl:px-9"
           type="submit"
         >
           Search

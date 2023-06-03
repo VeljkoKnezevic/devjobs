@@ -51,7 +51,7 @@ const Detail = ({ width, data, setDark, getData }: DetailProps) => {
                     </a>
                   </div>
                   <a
-                    className="font-base mt-6 rounded-md bg-violet bg-opacity-10 px-5 py-4 font-bold text-violet md:ml-auto md:mt-0"
+                    className="font-base mt-6 rounded-md bg-violet bg-opacity-10 px-5 py-4 font-bold text-violet hover:cursor-pointer hover:bg-violet hover:bg-opacity-30 md:ml-auto md:mt-0"
                     href={job.website}
                   >
                     Company Site
@@ -78,7 +78,7 @@ const Detail = ({ width, data, setDark, getData }: DetailProps) => {
                     </div>
                     <a
                       href={job.apply}
-                      className="mt-[50px]  w-full rounded-md bg-violet py-4 text-center text-base font-bold text-white md:ml-auto  md:mt-0 md:w-36"
+                      className="mt-[50px] w-full  rounded-md bg-violet py-4 text-center text-base font-bold text-white hover:bg-light-violet md:ml-auto  md:mt-0 md:w-36"
                       type="button"
                     >
                       Apply Now
@@ -143,7 +143,7 @@ const Detail = ({ width, data, setDark, getData }: DetailProps) => {
                         </p>
                       </div>
                       <a
-                        className="rounded-md bg-violet px-7 py-4 text-center text-base font-bold text-white md:py-3"
+                        className="rounded-md bg-violet px-7 py-4 text-center text-base font-bold text-white hover:bg-light-violet md:py-3"
                         href={job.apply}
                       >
                         Apply now

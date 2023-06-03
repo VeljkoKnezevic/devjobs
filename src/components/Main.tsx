@@ -49,7 +49,7 @@ const Main = ({ width, setDark, data, getData }: MainProps) => {
 
       <Jobs data={data} filters={filters} getData={getData} />
       <button
-        className="text-bold mx-auto mt-8 block bg-violet px-8 py-4  text-base text-white"
+        className="text-bold mx-auto mt-8 block rounded bg-violet px-8 py-4 text-base text-white  hover:cursor-pointer hover:bg-light-violet"
         type="button"
       >
         Load More

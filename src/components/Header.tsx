@@ -17,7 +17,7 @@ const Header = ({ setDark }: HeaderProps) => {
         <img src="/assets/desktop/icon-sun.svg" alt="Light mode" />{" "}
         <label className="flex items-center" htmlFor="toggle">
           <input
-            className="relative h-6 w-12 cursor-pointer appearance-none rounded-full bg-white after:absolute after:left-[5px] after:top-[5px] after:z-30 after:h-[14px] after:w-[14px] after:transform after:content-normal after:rounded-full after:bg-violet after:transition after:duration-200 after:checked:translate-x-6"
+            className="relative h-6 w-12 cursor-pointer appearance-none rounded-full bg-white after:absolute after:left-[5px] after:top-[5px] after:z-30 after:h-[14px] after:w-[14px] after:transform after:content-normal after:rounded-full after:bg-violet after:transition after:duration-200 after:checked:translate-x-6 hover:after:bg-light-violet"
             type="checkbox"
             onChange={toggleDark}
             id="toggle"
