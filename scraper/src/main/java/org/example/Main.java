@@ -27,36 +27,40 @@ public class Main {
             HtmlPage page = webClient.getPage("https://wellfound.com/role/r/software-engineer");
 
             // Find all job listing divs
-            List<HtmlElement> divs = page.getByXPath("//div[contains(@class, 'my-4 w-full')]");
+            List<HtmlElement> divs = page.getByXPath("//div[contains(@class, 'mb-6 w-full rounded border border-gray-400 bg-white')]");
             List<JobListing> jobListings = new ArrayList<>();
 
             for (HtmlElement element : divs) {
                 JobListing jobListing = new JobListing(
+                        // Company
                         extractTextFromXPath(element, ".//h2"),
+                        // Logo
                         extractLogoSrc(element),
+                        // Posted at
                         extractTextFromXPath(element, ".//span[contains(@class, 'text-xs lowercase text-dark-a mr-2 hidden flex-wrap content-center md:flex')]"),
+                        // Location
                         extractLocation(element),
+                        // Contract
                         extractTextFromXPath(element, ".//span[contains(@class, 'whitespace-nowrap rounded-lg bg-accent-yellow-100 px-2 py-1 text-[10px] font-semibold text-neutral-800')]"),
-                        extractJobDetails(page)
+                        // Website, apply and subscription
+                        extractJobDetails(element)
                 );
 
                 jobListings.add(jobListing);
             }
 
-            // Print or process job listings
             printJobListings(jobListings);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Helper method to extract text from XPath
+    // Helper functions
     private static String extractTextFromXPath(HtmlElement element, String xpath) {
         HtmlElement foundElement = element.getFirstByXPath(xpath);
         return foundElement != null ? foundElement.asNormalizedText() : "N/A";
     }
 
-    // Helper method to extract logo source
     private static String extractLogoSrc(HtmlElement element) {
         HtmlImage logo = element.getFirstByXPath(".//img");
         if (logo != null && logo.getSrcAttribute() != null) {
@@ -98,7 +102,6 @@ public class Main {
         return jobDetails;
     }
 
-    // Method to print job listings
     private static void printJobListings(List<JobListing> jobListings) {
         for (JobListing listing : jobListings) {
             System.out.println("Company: " + listing.company());
