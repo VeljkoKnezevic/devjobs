@@ -2,14 +2,14 @@ package org.example;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.WebResponse;
+import com.gargoylesoftware.htmlunit.html.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -43,13 +43,15 @@ public class Main {
                         // Contract
                         extractTextFromXPath(element, ".//span[contains(@class, 'whitespace-nowrap rounded-lg bg-accent-yellow-100 px-2 py-1 text-[10px] font-semibold text-neutral-800')]"),
                         // Website, apply and subscription
-                        extractJobDetails(element)
-                );
+                        extractJobDetails(page)
 
+                );
                 jobListings.add(jobListing);
+                break;
             }
 
             printJobListings(jobListings);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,15 +85,14 @@ public class Main {
             try {
                 HtmlPage insidePage = position.click();
 
-                HtmlElement websiteButton = insidePage.getFirstByXPath(".//button[contains(@class, 'styles_websiteLink___Rnfc')]");
-                HtmlElement applyButton = insidePage.getFirstByXPath("//div[contains(@class, 'styles_component__4MnBs')]//button");
-                HtmlElement description = insidePage.getFirstByXPath("//div[contains(@class, 'styles_description__36q7q')]");
+                HtmlElement description = (HtmlElement) insidePage.getElementById("job-description");
+                URL apply =  insidePage.getUrl();
 
-                if (websiteButton != null && applyButton != null) {
+
+                if (description != null && apply != null) {
                     jobDetails.add(new JobDetails(
-                            websiteButton.asNormalizedText(),
-                            applyButton.asNormalizedText(),
-                            description.asNormalizedText()
+                            apply.toString(),
+                            description.asXml()
                     ));
                 }
             } catch (IOException e) {
@@ -111,7 +112,6 @@ public class Main {
             System.out.println("Contract: " + listing.contract());
 
             for (JobDetails details : listing.jobDetails()) {
-                System.out.println("Website: " + details.getWebsite());
                 System.out.println("Apply Link: " + details.getApplyLink());
                 System.out.println("Description: " + details.getDescription());
 
@@ -120,25 +120,4 @@ public class Main {
         }
     }
 
-    private static JobDetails extractJobDetails(HtmlAnchor position) {
-        try {
-            HtmlPage insidePage = position.click();
-            JobDetails details = new JobDetails();
-
-            HtmlElement websiteButton = insidePage.getFirstByXPath(".//button[contains(@class, 'styles_websiteLink___Rnfc')]");
-            HtmlElement applyButton = insidePage.getFirstByXPath("//div[contains(@class, 'styles_component__4MnBs')]//button");
-            HtmlElement description = insidePage.getFirstByXPath("//div[contains(@class, 'styles_description__36q7q')]");
-
-            if (websiteButton != null && applyButton != null) {
-                details.setWebsite(websiteButton.asNormalizedText());
-                details.setApplyLink(applyButton.asNormalizedText());
-                details.setDescription(description.asNormalizedText());
-
-                return details;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

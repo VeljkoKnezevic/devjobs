@@ -5,7 +5,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class JobDetails {
-    private String website;
     private String applyLink;
     private String description;
 
@@ -13,19 +12,11 @@ public class JobDetails {
 
     }
 
-    public JobDetails(String website, String applyLink, String description) {
-        this.website = website;
+    public JobDetails(String applyLink, String description) {
         this.applyLink = applyLink;
         this.description = description;
     }
 
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
 
     public String getApplyLink() {
         return applyLink;
