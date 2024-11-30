@@ -6,24 +6,31 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final String DB_URL = dotenv.get("DB_URL");
+    private static final String DB_USER = dotenv.get("DB_USERNAME");
+    private static final String DB_PASSWORD = dotenv.get("DB_PASSWORD");
+
     public static void main(String[] args) {
         try (WebClient webClient = new WebClient()) {
-            // Configure WebClient to ignore JavaScript and CSS
             webClient.getOptions().setJavaScriptEnabled(false);
             webClient.getOptions().setCssEnabled(false);
 
-            // Load the main page
             HtmlPage page = webClient.getPage("https://wellfound.com/role/r/software-engineer");
 
-            // Find all job listing divs
             List<HtmlElement> divs = page.getByXPath("//div[contains(@class, 'mb-6 w-full rounded border border-gray-400 bg-white')]");
             List<JobListing> jobListings = new ArrayList<>();
 
@@ -47,10 +54,14 @@ public class Main {
                 jobListings.add(jobListing);
             }
 
-            printJobListings(jobListings);
+//            printJobListings(jobListings);
+            saveJobListingsToDatabase(jobListings);
 
         } catch (IOException e) {
             e.printStackTrace();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -70,8 +81,8 @@ public class Main {
     }
 
     private static String extractLocation(HtmlElement element) {
-        List<HtmlElement> locations = element.getByXPath(".//span[contains(@class, 'pl-1 text-xs')]");
-        return locations.size() > 1 ? locations.get(1).asNormalizedText() : "No location listed";
+        HtmlElement location = element.getFirstByXPath(".//span[contains(text(), 'Remote')]");
+        return location != null ? location.asNormalizedText() : "No location listed";
     }
 
     private static List<JobDetails> extractJobDetails(HtmlPage page) throws IOException {
@@ -95,7 +106,6 @@ public class Main {
         }
 
 
-
         return jobDetails;
     }
 
@@ -107,13 +117,52 @@ public class Main {
             System.out.println("Location: " + listing.location());
             System.out.println("Contract: " + listing.contract());
             System.out.println("Apply Link: " + listing.jobDetails().getApplyLink());
-//                System.out.println("Description: " + details.getDescription());
+            System.out.println("Description: " + listing.jobDetails().getDescription());
 
             System.out.println("---------------------------------------");
         }
 
     }
 
+    private static void saveJobListingsToDatabase(List<JobListing> jobListings) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String createTableSQL = """
+                CREATE TABLE IF NOT EXISTS job_listings (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    company VARCHAR(255),
+                    logo VARCHAR(500),
+                    posted_at VARCHAR(100),
+                    location VARCHAR(255),
+                    contract VARCHAR(100),
+                    apply_link VARCHAR(500),
+                    description TEXT
+                )
+            """;
+            connection.createStatement().execute(createTableSQL);
+
+            String insertSQL = """
+                INSERT INTO job_listings 
+                (company, logo, posted_at, location, contract, apply_link, description) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """;
+
+            try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+                for (JobListing listing : jobListings) {
+                    pstmt.setString(1, listing.company());
+                    pstmt.setString(2, listing.logo());
+                    pstmt.setString(3, listing.postedAt());
+                    pstmt.setString(4, listing.location());
+                    pstmt.setString(5, listing.contract());
+                    pstmt.setString(6, listing.jobDetails().getApplyLink());
+                    pstmt.setString(7, listing.jobDetails().getDescription());
+
+                    pstmt.executeUpdate();
+                }
+            }
+
+            System.out.println("Successfully saved " + jobListings.size() + " job listings to database.");
+        }
+    }
 
 
 }
