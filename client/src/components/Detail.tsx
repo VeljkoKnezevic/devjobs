@@ -19,6 +19,25 @@ const Detail = ({ width, setDark, fetchData }: DetailProps) => {
     queryFn: fetchData,
   });
 
+  if (error) {
+    return (
+      <>
+        <Header setDark={setDark} />
+        <p className="mx-6 mt-5 text-2xl md:mx-10">Error fetching data</p>
+        <p>{error.message}</p>
+      </>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <Header setDark={setDark} />
+        <p className="mx-6 mt-5 text-2xl md:mx-10">Loading...</p>
+      </>
+    );
+  }
+
   return (
     <>
       {data &&

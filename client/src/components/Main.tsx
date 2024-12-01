@@ -26,6 +26,26 @@ const Main = ({ width, setDark, fetchData }: MainProps) => {
     fullTime: false,
     location: "",
   });
+
+  if (error) {
+    return (
+      <>
+        <Header setDark={setDark} />
+        <p className="mx-6 mt-5 text-2xl md:mx-10">Error fetching data</p>
+        <p>{error.message}</p>
+      </>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <Header setDark={setDark} />
+        <p className="mx-6 mt-5 text-2xl md:mx-10">Loading...</p>
+      </>
+    );
+  }
+
   return (
     <main className="h-full w-full bg-light-gray pb-16 font-kumbh dark:bg-midnight">
       {openFilter && (
