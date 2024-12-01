@@ -16,6 +16,7 @@ public class JobListing {
 
     private String company;
     private String logo;
+    private String position;
     private String postedAt;
     private String location;
     private String contract;
@@ -44,6 +45,14 @@ public class JobListing {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getPostedAt() {
