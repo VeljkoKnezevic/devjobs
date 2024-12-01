@@ -42,6 +42,8 @@ public class Main {
                         extractTextFromXPath(element, ".//h2"),
                         // Logo
                         extractLogoSrc(element),
+                        // Position
+                        extractTextFromXPath(element, "//a[contains(@class, 'mr-2 text-sm font-semibold text-brand-burgandy hover:underline')]"),
                         // Posted at
                         extractTextFromXPath(element, ".//span[contains(@class, 'text-xs lowercase text-dark-a mr-2 hidden flex-wrap content-center md:flex')]"),
                         // Location
@@ -54,7 +56,7 @@ public class Main {
                 jobListings.add(jobListing);
             }
 
-//            printJobListings(jobListings);
+            printJobListings(jobListings);
             saveJobListingsToDatabase(jobListings);
 
         } catch (IOException e) {
@@ -113,6 +115,7 @@ public class Main {
         for (JobListing listing : jobListings) {
             System.out.println("Company: " + listing.company());
             System.out.println("Logo: " + listing.logo());
+            System.out.println("Position: " + listing.position());
             System.out.println("Posted At: " + listing.postedAt());
             System.out.println("Location: " + listing.location());
             System.out.println("Contract: " + listing.contract());
@@ -131,6 +134,7 @@ public class Main {
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     company VARCHAR(255),
                     logo VARCHAR(500),
+                    position VARCHAR(100),
                     posted_at VARCHAR(100),
                     location VARCHAR(255),
                     contract VARCHAR(100),
@@ -142,19 +146,20 @@ public class Main {
 
             String insertSQL = """
                 INSERT INTO job_listings 
-                (company, logo, posted_at, location, contract, apply_link, description) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                (company, logo, position,  posted_at, location, contract, apply_link, description) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """;
 
             try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
                 for (JobListing listing : jobListings) {
                     pstmt.setString(1, listing.company());
                     pstmt.setString(2, listing.logo());
-                    pstmt.setString(3, listing.postedAt());
-                    pstmt.setString(4, listing.location());
-                    pstmt.setString(5, listing.contract());
-                    pstmt.setString(6, listing.jobDetails().getApplyLink());
-                    pstmt.setString(7, listing.jobDetails().getDescription());
+                    pstmt.setString(3, listing.position());
+                    pstmt.setString(4, listing.postedAt());
+                    pstmt.setString(5, listing.location());
+                    pstmt.setString(6, listing.contract());
+                    pstmt.setString(7, listing.jobDetails().getApplyLink());
+                    pstmt.setString(8, listing.jobDetails().getDescription());
 
                     pstmt.executeUpdate();
                 }
