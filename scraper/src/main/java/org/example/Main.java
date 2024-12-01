@@ -130,7 +130,7 @@ public class Main {
     private static void saveJobListingsToDatabase(List<JobListing> jobListings) throws SQLException {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             String createTableSQL = """
-                CREATE TABLE IF NOT EXISTS job_listings (
+                CREATE TABLE IF NOT EXISTS job_listing (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     company VARCHAR(255),
                     logo VARCHAR(500),
@@ -145,7 +145,7 @@ public class Main {
             connection.createStatement().execute(createTableSQL);
 
             String insertSQL = """
-                INSERT INTO job_listings 
+                INSERT INTO job_listing 
                 (company, logo, position,  posted_at, location, contract, apply_link, description) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """;
