@@ -1,19 +1,13 @@
-import { useEffect } from "react";
-import { Data, FilterTypes, JobData } from "../Data";
+import { FilterTypes, JobData } from "../types";
 import Job from "./Job";
 
 type JobsProps = {
-  data: Data | undefined;
+  data: JobData[] | undefined;
   filters: FilterTypes;
   loadMore: boolean;
-  getData: () => void;
 };
 
-const Jobs = ({ loadMore, data, filters, getData }: JobsProps) => {
-  useEffect(() => {
-    getData();
-  }, [getData]);
-
+const Jobs = ({ loadMore, data, filters }: JobsProps) => {
   const filteringFunction = (job: JobData, filter: string | boolean) => {
     if (filter === filters.search) {
       if (!filters.search) return job;

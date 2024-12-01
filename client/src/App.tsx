@@ -1,13 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Main from "./components/Main";
-import { Data } from "./Data";
 import Detail from "./components/Detail";
+import Main from "./components/Main";
+import { JobData } from "./types";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   const [dark, setDark] = useState(false);
-  const [data, setData] = useState<Data | undefined>();
   const [width, setWidth] = useState<number>(window.innerWidth);
 
   function handleWindowSizeChange() {
@@ -20,49 +22,45 @@ const App = () => {
     };
   }, []);
 
-  const getData = useCallback(async () => {
+  const fetchData = async (): Promise<JobData[]> => {
     try {
-      const response = await fetch("/data.json");
-      const json: Data = await response.json();
+      const response = await fetch(`http://localhost:8080/`, {
+        headers: {
+          "Allow-Access-Control-Origin": "http://localhost:5173/",
+        },
+      });
 
-      if (json) {
-        setData(json);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
+
+      return await response.json();
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      throw new Error((err as Error).message);
     }
-  }, []);
+  };
 
   return (
-    <Router>
-      <div className={`${dark ? "dark" : ""}`}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Main
-                width={width}
-                setDark={setDark}
-                data={data}
-                getData={getData}
-              />
-            }
-          />
-          <Route
-            path="/:id"
-            element={
-              <Detail
-                width={width}
-                setDark={setDark}
-                data={data}
-                getData={getData}
-              />
-            }
-          />
-        </Routes>
-      </div>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <div className={`${dark ? "dark" : ""}`}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main fetchData={fetchData} width={width} setDark={setDark} />
+              }
+            />
+            <Route
+              path="/:id"
+              element={
+                <Detail fetchData={fetchData} width={width} setDark={setDark} />
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
+    </QueryClientProvider>
   );
 };
 

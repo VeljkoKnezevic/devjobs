@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { JobData } from "../Data";
+import { JobData } from "../types";
 
 type JobProps = {
   job: JobData;
@@ -11,12 +11,7 @@ const Job = ({ job }: JobProps) => {
       key={job.id}
       className="relative mx-6 rounded-md bg-white dark:bg-very-dark-blue md:mx-0"
     >
-      <div
-        style={{
-          background: job.logoBackground,
-        }}
-        className="absolute -top-6 left-8 flex h-[50px] w-[50px] items-center justify-center rounded-2xl"
-      >
+      <div className="absolute -top-6 left-8 flex h-[50px] w-[50px] items-center justify-center rounded-2xl bg-gray">
         <img src={job.logo} alt={job.company} />
       </div>
       <div className="pb-8 pl-8 pr-2 pt-[50px]">

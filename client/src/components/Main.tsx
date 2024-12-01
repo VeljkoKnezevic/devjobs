@@ -1,20 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { SetStateAction, useState } from "react";
-import Search from "./Search";
-import Jobs from "./Jobs";
-import Header from "./Header";
-import { Data, FilterTypes } from "../Data";
+import { FilterTypes, JobData } from "../types";
 import Filter from "./Filter";
+import Header from "./Header";
+import Jobs from "./Jobs";
+import Search from "./Search";
 
 type MainProps = {
   setDark: React.Dispatch<SetStateAction<boolean>>;
-  data: Data | undefined;
   width: number;
-  getData: () => void;
+  fetchData: () => Promise<JobData[]>;
 };
 
-const Main = ({ width, setDark, data, getData }: MainProps) => {
+const Main = ({ width, setDark, fetchData }: MainProps) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
+
+  const { isLoading, error, data } = useQuery<JobData[]>({
+    queryKey: ["jobListings"],
+    queryFn: fetchData,
+  });
 
   const [filters, setFilters] = useState<FilterTypes>({
     search: "",
@@ -48,12 +53,7 @@ const Main = ({ width, setDark, data, getData }: MainProps) => {
         setFilters={setFilters}
       />
 
-      <Jobs
-        loadMore={loadMore}
-        data={data}
-        filters={filters}
-        getData={getData}
-      />
+      <Jobs loadMore={loadMore} data={data} filters={filters} />
       {!loadMore && (
         <button
           className="text-bold mx-auto mt-8 block rounded bg-violet px-8 py-4 text-base text-white  hover:cursor-pointer hover:bg-light-violet"

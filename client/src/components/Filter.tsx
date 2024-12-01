@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { FormEvent, SetStateAction, useState } from "react";
-import { FilterTypes } from "../Data";
+import { FilterTypes } from "../types";
 
 type FilterProps = {
   filters: FilterTypes;

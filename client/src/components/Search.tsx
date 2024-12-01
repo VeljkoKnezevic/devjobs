@@ -1,5 +1,5 @@
 import { FormEvent, SetStateAction } from "react";
-import { FilterTypes } from "../Data";
+import { FilterTypes } from "../types";
 
 type SearchProps = {
   filters: FilterTypes;
