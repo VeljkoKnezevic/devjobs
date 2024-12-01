@@ -1,6 +1,6 @@
 ## Devjobs
 
-A software developer job board that displays jobs from different soruces, built with React, Spring, TypeScript, Tailwind and Python.
+A software developer job board that displays jobs from different soruces, built with React, Spring, TypeScript and Tailwind.
 
 ## Live version
 
@@ -8,7 +8,7 @@ https://devjobs-wheat.vercel.app/
 
 ## Project Status
 
-This project is currently in development.
+This project is finished, minor bug fixing to be done.
 
 ### Screenshots
 
@@ -62,7 +62,7 @@ http://localhost:5173
 
 ## Reflection
 
-The goal of this app was to learn web scraping while exploring a different programming language, as Python is the most commonly used language for this task. My main takeaway from this project is understanding how the different parts of the system interact, from data collection to its display.
+The goal of this app was to learn web scraping and how to do it effectively. My main takeaway from this project is understanding how the different parts of the system interact, from data collection to its display.
 
 
 
