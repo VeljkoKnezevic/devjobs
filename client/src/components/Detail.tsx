@@ -50,9 +50,13 @@ const Detail = ({ width, setDark, fetchData }: DetailProps) => {
                 className="h-full w-full bg-light-gray font-kumbh dark:bg-midnight"
               >
                 <Header setDark={setDark} />
-                <section className="relative mx-6 -mt-4 flex flex-col items-center rounded-md bg-white pb-8 pt-12 dark:bg-very-dark-blue md:mx-10 md:-mt-10 md:flex-row md:px-10 md:py-[42px] xl:mx-auto xl:max-w-[730px]">
-                  <div className="absolute -top-6 flex h-[50px] w-[50px] items-center justify-center rounded-2xl bg-gray md:left-0 md:top-0  md:h-[140px] md:w-[140px] md:rounded-t-none md:rounded-bl-md md:rounded-br-none">
-                    <img src={job.logo} alt={job.company} className="md:w-20" />
+                <section className="relative mx-6 -mt-4 flex flex-col items-center rounded-md bg-white pb-8 pt-12  dark:bg-very-dark-blue md:mx-10 md:-mt-10 md:flex-row md:px-10 md:py-[42px] xl:mx-auto xl:max-w-[730px]">
+                  <div className="rounded-2x absolute -top-6 flex  h-12 w-12 items-center justify-center md:left-0 md:top-0 md:block md:h-full md:w-28 md:rounded-t-none md:rounded-bl-md md:rounded-br-none">
+                    <img
+                      src={job.logo}
+                      alt={job.company}
+                      className="h-full w-full"
+                    />
                   </div>
                   <div className="md:pl-[140px]">
                     <h2 className="text-center text-xl font-bold text-very-dark-blue dark:text-white md:text-start md:text-2xl">
@@ -80,8 +84,8 @@ const Detail = ({ width, setDark, fetchData }: DetailProps) => {
                       </p>
                     </div>
                     <a
-                      href={job.apply}
-                      className="mt-[50px] w-full  rounded-md bg-violet py-4 text-center text-base font-bold text-white hover:bg-light-violet md:ml-auto  md:mt-0 md:w-36"
+                      href={job.applyLink}
+                      className="mt-12 block w-full  rounded-md bg-violet py-4 text-center text-base font-bold text-white hover:bg-light-violet md:ml-auto  md:mt-0 md:w-36"
                       type="button"
                     >
                       Apply Now
@@ -93,7 +97,7 @@ const Detail = ({ width, setDark, fetchData }: DetailProps) => {
                   <div className="mt-16 flex items-center justify-center bg-white p-6 dark:bg-very-dark-blue">
                     <a
                       className="w-full rounded-md bg-violet py-4 text-center text-base font-bold text-white"
-                      href={job.apply}
+                      href={job.applyLink}
                     >
                       Apply now
                     </a>
@@ -111,7 +115,7 @@ const Detail = ({ width, setDark, fetchData }: DetailProps) => {
                       </div>
                       <a
                         className="rounded-md bg-violet px-7 py-4 text-center text-base font-bold text-white hover:bg-light-violet md:py-3"
-                        href={job.apply}
+                        href={job.applyLink}
                       >
                         Apply now
                       </a>

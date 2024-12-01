@@ -1,4 +1,5 @@
 import { SetStateAction } from "react";
+import { Link } from "react-router-dom";
 
 type HeaderProps = {
   setDark: React.Dispatch<SetStateAction<boolean>>;
@@ -11,7 +12,9 @@ const Header = ({ setDark }: HeaderProps) => {
   return (
     <header className="flex justify-between bg-[url(/assets/mobile/bg-pattern-header.svg)] px-6 pb-[72px] pt-8 md:bg-[url(/assets/tablet/bg-pattern-header.svg)] md:px-10 md:pb-[86px] md:pt-10 lg:bg-[url(/assets/desktop/bg-pattern-header.svg)] xl:rounded-bl-[100px] xl:bg-cover xl:px-40 xl:pt-11">
       <h1>
-        <img src="/assets/desktop/logo.svg" alt="Devjobs logo" />
+        <Link to={"/"}>
+          <img src="/assets/desktop/logo.svg" alt="Devjobs logo" />
+        </Link>
       </h1>
       <div className="flex items-center gap-4">
         <img src="/assets/desktop/icon-sun.svg" alt="Light mode" />{" "}

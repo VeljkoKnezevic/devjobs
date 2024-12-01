@@ -1,4 +1,4 @@
-import { FilterTypes, JobData } from "../types";
+import { Contract, FilterTypes, JobData } from "../types";
 import Job from "./Job";
 
 type JobsProps = {
@@ -18,7 +18,7 @@ const Jobs = ({ loadMore, data, filters }: JobsProps) => {
     if (filter === filters.fullTime) {
       if (!filters.fullTime) return job;
 
-      return job.contract === "Full Time";
+      return job.contract === Contract.FullTime;
     }
 
     if (!filters.location) return job;

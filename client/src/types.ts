@@ -6,20 +6,15 @@ export type JobData = {
   postedAt: string;
   contract: Contract;
   location: string;
-  apply: string;
+  applyLink: string;
   description: string;
 };
 
 export enum Contract {
   Freelance = "Freelance",
-  FullTime = "Full Time",
-  PartTime = "Part Time",
+  FullTime = "Full-time",
+  PartTime = "Part-time",
 }
-
-export type Requirements = {
-  content: string;
-  items: string[];
-};
 
 export type FilterTypes = {
   search: string;
