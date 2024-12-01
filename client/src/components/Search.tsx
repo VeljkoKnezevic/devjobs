@@ -45,11 +45,7 @@ const Search = ({ width, filters, setFilters, setOpenFilter }: SearchProps) => {
           <input
             className="w-36 bg-[url(/assets/desktop/icon-search.svg)] bg-no-repeat pl-10 text-very-dark-blue caret-violet dark:bg-very-dark-blue dark:text-white xl:w-80"
             type="text"
-            placeholder={
-              width >= 1440
-                ? "Filter by title, companies, expertise…"
-                : "Filter by title..."
-            }
+            placeholder={"filter by position"}
             onChange={(e) =>
               filters.search &&
               setFilters((prev) => ({ ...prev, search: e.target.value }))

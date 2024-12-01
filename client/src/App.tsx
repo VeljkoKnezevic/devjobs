@@ -24,7 +24,7 @@ const App = () => {
 
   const fetchData = async (): Promise<JobData[]> => {
     try {
-      const response = await fetch(`http://localhost:8080/`, {
+      const response = await fetch(`https://devjobs-zp8g.onrender.com`, {
         headers: {
           "Allow-Access-Control-Origin": "http://localhost:5173/",
         },
